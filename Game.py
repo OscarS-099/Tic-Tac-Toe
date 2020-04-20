@@ -1,3 +1,6 @@
+class GameError(Exception):
+    pass
+
 
 class Game:
 
@@ -21,8 +24,16 @@ class Game:
         return string
 
     def play(self,row,col):
+        if not (0 < row <= Game.DIM):
+            raise GameError(f"Row {row} not in range")
+        if not (0 < row <= Game.DIM):
+            raise GameError(f"Column {col} not in range")
         row -= 1
         col -= 1
+
+        if self._board[row][col] is not Game.EMPTY:
+            raise GameError(f"Board not empty at {row} {col}")
+
         self._board[row][col] = self._player
         self._player = Game.P2 if self._player is Game.P1 else Game.P1
 

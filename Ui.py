@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Game import Game
+from Game import Game, GameError
 
 class Ui(ABC):
 
@@ -21,8 +21,18 @@ class Terminal(Ui):
     def run(self):
         while not self._game.winner:
             print(self._game)
-            row = int(input("which row? "))
-            col = int(input("Which column? "))
+            try:
+                row = int(input("which row? "))
+                col = int(input("Which column? "))
+            except ValueError:
+                print("Row and Column need to be numbers.")
+                continue
+
+            try:
+                self._game.play(row,col)
+            except GameError as e:
+                print(f"GameError: {e}")
+
             self._game.play(row,col)
 
         print(self._game)
