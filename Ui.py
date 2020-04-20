@@ -26,7 +26,7 @@ class Terminal(Ui):
             self._game.play(row,col)
 
         print(self._game)
-        print(f"The winner was {self.game.winner}")
+        print(f"The winner was {self._game.winner}")
 
 if __name__ == "__main__":
     ui = Terminal()

@@ -16,7 +16,7 @@ class Game:
         string += "  -----\n"
         string += f"2 {self._board[1][0]}|{self._board[1][1]}|{self._board[1][2]}\n"
         string += "  -----\n"
-        string += f"1 {self._board[2][0]}|{self._board[2][1]}|{self._board[2][2]}\n"
+        string += f"3 {self._board[2][0]}|{self._board[2][1]}|{self._board[2][2]}\n"
         string += f"\n{self._player} turn to play"
         return string
 
@@ -28,7 +28,20 @@ class Game:
 
     @property
     def winner(self):
-        pass
+        for p in [Game.P1,Game.P2]:
+            for row in range(Game.DIM):
+                if all(self._board[row][col] is p for col in range(Game.DIM)):
+                    return p
+            for col in range(Game.DIM):
+                if all(self._board[row][col] is p for row in range(Game.DIM)):
+                    return p
+                # Diagonals
+                if all(self._board[i][i] is p for i in range(Game.DIM)):
+                    return p
+                if all(self._board[i][2-i] is p for i in range(Game.DIM)):
+                    return p
+        # No winner
+        return None
 
 if __name__ == "__main__":
     pass
