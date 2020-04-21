@@ -26,30 +26,20 @@ class Terminal(Ui):
                 col = int(input("Which column? "))
             except ValueError:
                 print("Row and Column need to be numbers, try again")
-                while True:
-                    try:
-                        row = int(input("Which row? "))
-                        col = int(input("Which column? "))
-                        break
-                    except:
-                        continue
+                continue
 
             try:
                 self._game.play(row,col)
             except GameError as e:
                 print(f"GameError: {e}")
-                while True:
-                    try:
-                        row = int(input("Which row? "))
-                        col = int(input("Which column? "))
-                        self._game.play(row,col)
-                        break
-                    except:
-                        continue
+                continue
 
 
         print(self._game)
-        print(f"The winner was {self._game.winner}")
+        if self._game.winner == "Draw":
+            print("The game was a draw")
+        else:
+            print(f"The winner was {self._game.winner}")
 
 if __name__ == "__main__":
     ui = Terminal()

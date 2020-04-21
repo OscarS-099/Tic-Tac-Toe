@@ -1,6 +1,7 @@
+from itertools import product
+
 class GameError(Exception):
     pass
-
 
 class Game:
 
@@ -27,9 +28,9 @@ class Game:
         row -= 1
         col -= 1
 
-        if not (0 <= row <= Game.DIM):
+        if not (0 <= row < Game.DIM):
             raise GameError(f"Row {row + 1} not in range")
-        if not (0 <= row <= Game.DIM):
+        if not (0 <= col < Game.DIM):
             raise GameError(f"Column {col + 1} not in range")
 
         if self._board[row][col] is not Game.EMPTY:
@@ -52,6 +53,11 @@ class Game:
                     return p
                 if all(self._board[i][2-i] is p for i in range(Game.DIM)):
                     return p
+
+        # Draw
+        if all(self._board[row][col] is not Game.EMPTY for (row,col) in product(range(3),range(3))):
+            return "Draw"
+
         # No winner
         return None
 
