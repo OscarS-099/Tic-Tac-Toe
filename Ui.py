@@ -22,18 +22,31 @@ class Terminal(Ui):
         while not self._game.winner:
             print(self._game)
             try:
-                row = int(input("which row? "))
+                row = int(input("Which row? "))
                 col = int(input("Which column? "))
             except ValueError:
-                print("Row and Column need to be numbers.")
-                continue
+                print("Row and Column need to be numbers, try again")
+                while True:
+                    try:
+                        row = int(input("Which row? "))
+                        col = int(input("Which column? "))
+                        break
+                    except:
+                        continue
 
             try:
                 self._game.play(row,col)
             except GameError as e:
                 print(f"GameError: {e}")
+                while True:
+                    try:
+                        row = int(input("Which row? "))
+                        col = int(input("Which column? "))
+                        self._game.play(row,col)
+                        break
+                    except:
+                        continue
 
-            self._game.play(row,col)
 
         print(self._game)
         print(f"The winner was {self._game.winner}")
