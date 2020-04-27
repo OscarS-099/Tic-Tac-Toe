@@ -7,6 +7,7 @@ class Game:
 
     EMPTY = " "
     DIM = 3
+    DRAW = "Draw"
     P1 = "o"
     P2 = "x"
 
@@ -61,7 +62,7 @@ class Game:
 
         # Draw
         if all(self._board[row][col] is not Game.EMPTY for (row,col) in product(range(3),range(3))):
-            return "Draw"
+            return Game.DRAW
 
         # No winner
         return None
